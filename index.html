@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BAND-MAID Song Sorter</title>
+<link rel="icon" type="image/png" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
@@ -37,10 +38,13 @@
   #app { max-width: 880px; margin: 0 auto; padding: 0 20px 80px; }
 
   /* ── Header ── */
-  header { text-align: center; padding: 44px 0 24px; }
-  header::after { content:''; display:block; width:52px; height:2px; background:var(--acc); margin:16px auto 0; }
-  .hd-main { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.2rem,6vw,3.8rem); letter-spacing:.08em; line-height:1; }
-  .hd-sub  { font-family:'Bebas Neue',sans-serif; font-size:clamp(.82rem,2.1vw,1.05rem); letter-spacing:.32em; color:var(--acc); margin-top:5px; }
+  header { display:flex; align-items:center; gap:20px; padding:28px 0 24px; position:relative; }
+  header::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--acc) 30%, var(--acc) 70%, transparent); }
+  .hd-logo { height:72px; width:auto; flex-shrink:0; object-fit:contain; }
+  .hd-text { flex:1; }
+  .hd-main { font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,5.5vw,3.4rem); letter-spacing:.08em; line-height:1; }
+  .hd-sub  { font-family:'Bebas Neue',sans-serif; font-size:clamp(.78rem,2vw,1rem); letter-spacing:.32em; color:var(--acc); margin-top:4px; }
+  @media(max-width:480px){ .hd-logo{height:52px;} header{gap:14px;} }
 
   /* ── Screens ── */
   .screen { display:none; }
@@ -94,8 +98,10 @@
   .song-ttl  { font-family:'Bebas Neue',sans-serif; font-size:clamp(1rem,2.4vw,1.42rem); letter-spacing:.05em; line-height:1.2; margin-bottom:5px; }
   .song-alb  { font-size:.74rem; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px; min-height:1em; }
   .pick      { position:absolute; top:9px; right:9px; background:var(--acc); color:#fff; font-family:'Bebas Neue',sans-serif; font-size:.6rem; letter-spacing:.14em; padding:3px 7px; border-radius:2px; opacity:0; transition:opacity .18s; pointer-events:none; }
-  .card-sp   { border-top:1px solid var(--bord); }
-  .card-sp iframe { display:block; border-radius:0 0 4px 4px; }
+  .card-sp   { border-top:1px solid var(--bord); padding:10px 14px; display:flex; align-items:center; gap:8px; }
+  .listen-btn { display:inline-flex; align-items:center; gap:7px; background:transparent; border:1px solid var(--bord); color:var(--muted); font-family:'Barlow',sans-serif; font-size:.75rem; font-weight:400; letter-spacing:.07em; padding:6px 13px; border-radius:2px; cursor:pointer; text-decoration:none; transition:all .15s; }
+  .listen-btn:hover { border-color:#1DB954; color:#1DB954; }
+  .sp-icon { width:14px; height:14px; flex-shrink:0; }
 
   .act-row { display:flex; justify-content:center; gap:12px; margin-top:14px; flex-wrap:wrap; }
 
@@ -141,15 +147,18 @@
 <div id="app">
 
   <header>
-    <div class="hd-main">BAND-MAID</div>
-    <div class="hd-sub">Song Preference Sorter</div>
+    <img src="logo.png" alt="BAND-MAID logo" class="hd-logo">
+    <div class="hd-text">
+      <div class="hd-main">BAND-MAID</div>
+      <div class="hd-sub">Song Preference Sorter</div>
+    </div>
   </header>
 
   <!-- ══════════ START ══════════ -->
   <div id="scr-start" class="screen active">
     <div class="start-card">
       <h2>Rank Your Favorites</h2>
-      <p>Two songs at a time — just pick which one you prefer. Repeat until all songs are ranked. You can preview each song, skip a tough pair, or save your progress to continue later.</p>
+      <p>Two songs at a time — just pick which one you prefer. Repeat until all songs are ranked. You can preview each song on Spotify or save your progress to continue later.</p>
       <div class="stat-row">
         <div><div class="stat-num" id="s-count">—</div><div class="stat-label">Songs</div></div>
         <div><div class="stat-num" id="s-est">—</div><div class="stat-label">Est. Comparisons</div></div>
@@ -197,7 +206,6 @@
     </div>
 
     <div class="act-row">
-      <button class="btn btn-sec btn-sm" id="btn-skip">⟳ Too Close to Call / Skip</button>
       <button class="btn btn-sec btn-sm" id="btn-save">💾 Save Progress</button>
     </div>
   </div>
@@ -267,7 +275,7 @@ let curA = null, curB = null;
 let finalRanking = [];
 
 function newState() {
-  return { choices: 0, skips: 0, done: false };
+  return { choices: 0, done: false };
 }
 
 // ═══════════════════════════════════════════
@@ -287,7 +295,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   document.getElementById('btn-start').onclick   = startFresh;
-  document.getElementById('btn-skip').onclick    = () => pick('skip');
   document.getElementById('btn-save').onclick    = saveSession;
   document.getElementById('btn-copy').onclick    = copyReadable;
   document.getElementById('btn-dl').onclick      = downloadJSON;
@@ -316,9 +323,9 @@ function updateProgress() {
   const pct = Math.min(Math.floor(state.choices / wc * 100), 99);
   document.getElementById('pct-lbl').textContent    = pct + '%';
   document.getElementById('prog-fill').style.width  = pct + '%';
-  const c = state.choices, sk = state.skips;
+  const c = state.choices;
   document.getElementById('choice-lbl').textContent =
-    `${c} comparison${c !== 1 ? 's' : ''} made` + (sk ? ` · ${sk} skipped` : '');
+    `${c} comparison${c !== 1 ? 's' : ''} made`;
 }
 
 // ═══════════════════════════════════════════
@@ -344,12 +351,9 @@ async function ask(idxA, idxB) {
 
 function pick(winner) {
   if (!resolver) return;
-  if (winner === 'a' || winner === 'b') {
-    const c = document.getElementById('card-' + winner);
-    c.classList.add('chosen');
-    setTimeout(() => c.classList.remove('chosen'), 350);
-  }
-  if (winner === 'skip') state.skips++;
+  const c = document.getElementById('card-' + winner);
+  c.classList.add('chosen');
+  setTimeout(() => c.classList.remove('chosen'), 350);
   state.choices++;
   updateProgress();
   compLog.push({ a: curA, b: curB, winner });
@@ -371,7 +375,7 @@ async function mergeArrays(left, right) {
   let l = 0, r = 0;
   while (l < left.length && r < right.length) {
     const w = await ask(left[l], right[r]);
-    // 'b' means right song preferred; anything else (a or skip) advances left
+    // 'b' = right song wins; 'a' = left song wins
     if (w === 'b') out.push(right[r++]);
     else           out.push(left[l++]);
   }
@@ -403,10 +407,13 @@ function renderSpotify(elId, sid) {
   const el = document.getElementById(elId);
   if (!sid) { el.innerHTML = ''; return; }
   el.innerHTML =
-    `<iframe src="https://open.spotify.com/embed/track/${sid}?utm_source=generator&theme=0"
-       width="100%" height="80" frameBorder="0"
-       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-       loading="lazy"></iframe>`;
+    `<a class="listen-btn" href="https://open.spotify.com/track/${sid}" target="_blank" rel="noopener noreferrer"
+        onclick="event.stopPropagation()">
+      <svg class="sp-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+      </svg>
+      Listen on Spotify
+    </a>`;
 }
 
 // ═══════════════════════════════════════════
@@ -436,7 +443,7 @@ async function loadSession(ev) {
     if (saved.done && Array.isArray(saved.sortedIndices)) {
       // Completed — jump to results
       finalRanking = saved.sortedIndices;
-      state   = { choices: saved.choices, skips: saved.skips || 0, done: true };
+      state   = { choices: saved.choices, done: true };
       compLog = saved.compLog;
       showScreen('scr-results');
       renderRanking(finalRanking);
@@ -447,7 +454,7 @@ async function loadSession(ev) {
     // In-progress resume
     replayQueue  = [...saved.compLog];
     compLog      = [];
-    state        = { choices: 0, skips: saved.skips || 0, done: false };
+    state        = { choices: 0, done: false };
     resolver     = null;
     finalRanking = [];
     showScreen('scr-sort');
@@ -510,7 +517,6 @@ function downloadJSON() {
     submittedBy:  name,
     submittedAt:  new Date().toISOString(),
     choices:      state.choices,
-    skips:        state.skips,
     ranking:      finalRanking.map((idx, i) => ({
       rank:       i + 1,
       title:      songs[idx]?.title      || '?',
@@ -529,7 +535,6 @@ function saveSession() {
   const payload = {
     savedAt:      new Date().toISOString(),
     choices:      state.choices,
-    skips:        state.skips,
     done:         state.done,
     compLog:      [...compLog],
     sortedIndices: state.done ? [...finalRanking] : null,
