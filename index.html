@@ -332,8 +332,6 @@ async function ask(idxA, idxB) {
     if (e.a === idxA && e.b === idxB) {
       replayQueue.shift();
       renderCards(idxA, idxB);
-      state.choices++;
-      updateProgress();
       await sleep(10);
       return e.winner;
     }
@@ -452,14 +450,11 @@ async function loadSession(ev) {
     resolver     = null;
     finalRanking = [];
     showScreen('scr-sort');
-    // Immediately paint the saved progress so the bar isn't blank during replay
-    const savedChoices = saved.choices;
-    const wc = worstCase(songs.length);
-    const pct = Math.min(Math.floor(savedChoices / wc * 100), 99);
-    document.getElementById('pct-lbl').textContent   = pct + '%';
-    document.getElementById('prog-fill').style.width = pct + '%';
+    // Seed choices to the saved count — bar stays correct throughout replay
+    state        = { choices: saved.choices, done: false };
+    updateProgress();
     document.getElementById('choice-lbl').textContent =
-      `${savedChoices} comparisons made · replaying…`;
+      `${saved.choices} comparisons made · replaying…`;
     toast('Resuming — replaying your previous choices…');
     // Use sequential indices; replay log guides the decisions
     const idx    = Array.from({ length: songs.length }, (_, i) => i);
@@ -528,6 +523,12 @@ function copyJSON() {
     .catch(() => toast('Copy failed — try a different browser.'));
 }
 
+function fmtTimestamp() {
+  const d = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+}
+
 // ═══════════════════════════════════════════
 //  SAVE SESSION
 // ═══════════════════════════════════════════
@@ -539,7 +540,7 @@ function saveSession() {
     compLog:      [...compLog],
     sortedIndices: state.done ? [...finalRanking] : null,
   };
-  dlFile('bandmaid-session-' + Date.now() + '.json', payload);
+  dlFile('bandmaid-session_' + fmtTimestamp() + '.json', payload);
   toast('Session saved!');
 }
 
