@@ -296,8 +296,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('btn-submit').onclick   = () => window.open('https://forms.gle/mNXhCL6rWYSHyFBY6', '_blank');
   document.getElementById('btn-restart').onclick  = () => showScreen('scr-start');
   document.getElementById('file-resume').onchange = loadSession;
-  document.getElementById('card-a').onclick       = () => pick('a');
-  document.getElementById('card-b').onclick       = () => pick('b');
+  document.getElementById('card-a').onclick       = () => { kbSide = 'a'; pick('a'); };
+  document.getElementById('card-b').onclick       = () => { kbSide = 'b'; pick('b'); };
 
   // Keyboard: Tab toggles between cards, Enter selects focused card
   document.addEventListener('keydown', e => {
@@ -405,6 +405,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 function setKbFocus(side) {
   document.getElementById('card-a').classList.toggle('kb-focus', side === 'a');
   document.getElementById('card-b').classList.toggle('kb-focus', side === 'b');
+  document.getElementById('card-' + side).focus({ preventScroll: true });
 }
 
 function renderCards(iA, iB) {
@@ -415,9 +416,9 @@ function renderCards(iA, iB) {
   document.getElementById('alb-b').textContent = b.album || '';
   renderSpotify('sp-a', a.SpotifyId);
   renderSpotify('sp-b', b.SpotifyId);
-  // Reset keyboard focus to left card on each new pair
-  kbSide = 'a';
-  setKbFocus('a');
+  // Defer focus update so it runs after any browser-native focus events
+  // triggered by DOM mutation (e.g. rebuilding the Spotify link innerHTML)
+  Promise.resolve().then(() => setKbFocus(kbSide));
 }
 function renderSpotify(elId, sid) {
   const el = document.getElementById(elId);
