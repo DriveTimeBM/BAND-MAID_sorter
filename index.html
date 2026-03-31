@@ -254,7 +254,7 @@ const SONGS_URL = 'songs.json';
 // Progress bar conservatism.
 // Bar reaches 100% only after (n·log₂n · FACTOR) comparisons.
 // Higher = slower bar = user less likely to feel "almost done" prematurely.
-const PROGRESS_FACTOR = 1.6;
+const PROGRESS_FACTOR = 1.4;
 
 // ═══════════════════════════════════════════
 //  STATE
@@ -392,8 +392,8 @@ function renderCards(iA, iB) {
   document.getElementById('alb-a').textContent = a.album || '';
   document.getElementById('ttl-b').textContent = b.title;
   document.getElementById('alb-b').textContent = b.album || '';
-  renderSpotify('sp-a', a.spotifyId);
-  renderSpotify('sp-b', b.spotifyId);
+  renderSpotify('sp-a', a.SpotifyId);
+  renderSpotify('sp-b', b.SpotifyId);
 }
 function renderSpotify(elId, sid) {
   const el = document.getElementById(elId);
