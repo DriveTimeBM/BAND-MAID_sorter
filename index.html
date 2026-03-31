@@ -235,8 +235,7 @@
     <div class="info-box">
       <strong>To submit your results:</strong>
       Click <em>Copy Submission JSON</em> to copy your results to the clipboard, then click
-      <em>Submit Results</em> to open the Google Form and paste into the response field. 
-      Clicking on <em>Copy My Ranking</em> will give you a nicely formatted list you can paste somewhere for your own records.
+      <em>Submit Results</em> to open the Google Form and paste into the response field.
     </div>
 
     <div class="btn-row" style="margin-top:8px">
@@ -349,6 +348,7 @@ async function ask(idxA, idxB) {
     const e = replayQueue[0];
     if (e.a === idxA && e.b === idxB) {
       replayQueue.shift();
+      compLog.push(e);   // restore to compLog so subsequent saves include it
       renderCards(idxA, idxB);
       await sleep(10);
       return e.winner;
@@ -438,6 +438,8 @@ function renderSpotify(elId, sid) {
 // ═══════════════════════════════════════════
 //  START / RESUME
 // ═══════════════════════════════════════════
+let initialOrder = [];   // fixed index order for this session — stored in save file
+
 async function startFresh() {
   if (!songs.length) { toast('songs.json not loaded yet.'); return; }
   state        = newState();
@@ -445,10 +447,12 @@ async function startFresh() {
   replayQueue  = [];
   resolver     = null;
   finalRanking = [];
+  // Use a fixed, deterministic order (song index 0..n-1).
+  // Store it so resume can use the exact same sequence.
+  initialOrder = Array.from({ length: songs.length }, (_, i) => i);
   showScreen('scr-sort');
   updateProgress();
-  const idx    = shuffle(Array.from({ length: songs.length }, (_, i) => i));
-  const sorted = await runSort(idx);
+  const sorted = await runSort([...initialOrder]);
   finalize(sorted);
 }
 
@@ -471,21 +475,21 @@ async function loadSession(ev) {
     }
 
     // In-progress resume
+    // Use the saved initialOrder so sort comparisons are identical to the original run
+    initialOrder = Array.isArray(saved.initialOrder)
+      ? saved.initialOrder
+      : Array.from({ length: songs.length }, (_, i) => i);
     replayQueue  = [...saved.compLog];
-    compLog      = [];
-    state        = { choices: 0, done: false };
+    compLog      = [];        // will be populated during replay below
     resolver     = null;
     finalRanking = [];
     showScreen('scr-sort');
-    // Seed choices to the saved count — bar stays correct throughout replay
     state        = { choices: saved.choices, done: false };
     updateProgress();
     document.getElementById('choice-lbl').textContent =
       `${saved.choices} comparisons made · replaying…`;
     toast('Resuming — replaying your previous choices…');
-    // Use sequential indices; replay log guides the decisions
-    const idx    = Array.from({ length: songs.length }, (_, i) => i);
-    const sorted = await runSort(idx);
+    const sorted = await runSort([...initialOrder]);
     finalize(sorted);
   } catch(e) {
     toast('Error loading session: ' + e.message);
@@ -561,10 +565,11 @@ function fmtTimestamp() {
 // ═══════════════════════════════════════════
 function saveSession() {
   const payload = {
-    savedAt:      new Date().toISOString(),
-    choices:      state.choices,
-    done:         state.done,
-    compLog:      [...compLog],
+    savedAt:       new Date().toISOString(),
+    choices:       state.choices,
+    done:          state.done,
+    initialOrder:  [...initialOrder],
+    compLog:       [...compLog],
     sortedIndices: state.done ? [...finalRanking] : null,
   };
   dlFile('bandmaid-session_' + fmtTimestamp() + '.json', payload);
