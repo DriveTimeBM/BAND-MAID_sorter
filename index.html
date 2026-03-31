@@ -248,14 +248,13 @@
 
 <script>
 // ═══════════════════════════════════════════
-//  CONFIG — adjust these at the top of your copy
+//  CONFIG — edit config.json, not this file
 // ═══════════════════════════════════════════
-const SONGS_URL = 'songs.json';
+const CONFIG_URL = 'config.json';
 
-// Progress bar conservatism.
-// Bar reaches 100% only after (n·log₂n · FACTOR) comparisons.
-// Higher = slower bar = user less likely to feel "almost done" prematurely.
-const PROGRESS_FACTOR = 1.2;
+// Defaults used if config.json is missing or a key is absent
+let SONGS_URL       = 'songs.json';
+let PROGRESS_FACTOR = 0.75;
 
 // ═══════════════════════════════════════════
 //  STATE
@@ -278,6 +277,18 @@ function newState() {
 //  BOOT
 // ═══════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', async () => {
+  // Load config first, then songs
+  try {
+    const rc = await fetch(CONFIG_URL);
+    if (rc.ok) {
+      const cfg = await rc.json();
+      if (typeof cfg.songsUrl       === 'string') SONGS_URL       = cfg.songsUrl;
+      if (typeof cfg.progressFactor === 'number') PROGRESS_FACTOR = cfg.progressFactor;
+    }
+  } catch(e) {
+    console.warn('config.json not found or invalid — using defaults:', e.message);
+  }
+
   try {
     const r = await fetch(SONGS_URL);
     if (!r.ok) throw new Error('HTTP ' + r.status);
