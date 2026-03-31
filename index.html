@@ -38,10 +38,10 @@
   #app { max-width: 880px; margin: 0 auto; padding: 0 20px 80px; }
 
   /* ── Header ── */
-  header { display:flex; align-items:center; gap:20px; padding:28px 0 24px; position:relative; }
+  header { display:flex; align-items:center; justify-content:center; gap:20px; padding:28px 0 24px; position:relative; }
   header::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--acc) 30%, var(--acc) 70%, transparent); }
   .hd-logo { height:72px; width:auto; flex-shrink:0; object-fit:contain; }
-  .hd-text { flex:1; }
+  .hd-text { text-align:center; }
   .hd-main { font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,5.5vw,3.4rem); letter-spacing:.08em; line-height:1; }
   .hd-sub  { font-family:'Bebas Neue',sans-serif; font-size:clamp(.78rem,2vw,1rem); letter-spacing:.32em; color:var(--acc); margin-top:4px; }
   @media(max-width:480px){ .hd-logo{height:52px;} header{gap:14px;} }
@@ -227,21 +227,14 @@
 
     <div class="btn-row">
       <button class="btn btn-sec" id="btn-copy">📋 Copy My Ranking</button>
-      <button class="btn btn-gold" id="btn-dl">⬇ Download Submission File</button>
+      <button class="btn btn-sec" id="btn-copyjson">📋 Copy Submission JSON</button>
+      <button class="btn btn-gold" id="btn-submit">Submit Results →</button>
     </div>
 
     <div class="info-box">
-      <strong>How to submit your results:</strong>
-      Download the submission file, then choose a method:<br><br>
-      <strong>Option A — GitHub Issue (recommended):</strong>
-      Open an issue at <a href="https://github.com/YOUR_USERNAME/BAND-MAID_sorter/issues/new" target="_blank">github.com/YOUR_USERNAME/BAND-MAID_sorter</a>
-      and attach the <code>.json</code> file. Free, pseudonymous — only requires a GitHub account.<br><br>
-      <strong>Option B — Google Form:</strong>
-      Set up a Form with a "Long answer" field and paste the JSON text there.
-      Responses flow into a Sheet you can process with Apps Script.
-      Add the form URL to <code>index.html</code> config at the top of the script.<br><br>
-      <strong>Option C — Email:</strong>
-      Configure a mailto link or alias address in <code>index.html</code>.
+      <strong>To submit your results:</strong>
+      Click <em>Copy Submission JSON</em> to copy your results to the clipboard, then click
+      <em>Submit Results</em> to open the Google Form and paste into the response field.
     </div>
 
     <div class="btn-row" style="margin-top:8px">
@@ -294,14 +287,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('s-est').textContent   = '?';
   }
 
-  document.getElementById('btn-start').onclick   = startFresh;
-  document.getElementById('btn-save').onclick    = saveSession;
-  document.getElementById('btn-copy').onclick    = copyReadable;
-  document.getElementById('btn-dl').onclick      = downloadJSON;
-  document.getElementById('btn-restart').onclick = () => showScreen('scr-start');
+  document.getElementById('btn-start').onclick    = startFresh;
+  document.getElementById('btn-save').onclick     = saveSession;
+  document.getElementById('btn-copy').onclick     = copyReadable;
+  document.getElementById('btn-copyjson').onclick = copyJSON;
+  document.getElementById('btn-submit').onclick   = () => window.open('https://forms.gle/mNXhCL6rWYSHyFBY6', '_blank');
+  document.getElementById('btn-restart').onclick  = () => showScreen('scr-start');
   document.getElementById('file-resume').onchange = loadSession;
-  document.getElementById('card-a').onclick      = () => pick('a');
-  document.getElementById('card-b').onclick      = () => pick('b');
+  document.getElementById('card-a').onclick       = () => pick('a');
+  document.getElementById('card-b').onclick       = () => pick('b');
 });
 
 // ═══════════════════════════════════════════
@@ -458,7 +452,14 @@ async function loadSession(ev) {
     resolver     = null;
     finalRanking = [];
     showScreen('scr-sort');
-    updateProgress();
+    // Immediately paint the saved progress so the bar isn't blank during replay
+    const savedChoices = saved.choices;
+    const wc = worstCase(songs.length);
+    const pct = Math.min(Math.floor(savedChoices / wc * 100), 99);
+    document.getElementById('pct-lbl').textContent   = pct + '%';
+    document.getElementById('prog-fill').style.width = pct + '%';
+    document.getElementById('choice-lbl').textContent =
+      `${savedChoices} comparisons made · replaying…`;
     toast('Resuming — replaying your previous choices…');
     // Use sequential indices; replay log guides the decisions
     const idx    = Array.from({ length: songs.length }, (_, i) => i);
@@ -511,21 +512,20 @@ function copyReadable() {
     .catch(() => toast('Copy failed — try selecting text manually.'));
 }
 
-function downloadJSON() {
+function copyJSON() {
   const name    = getName();
   const payload = {
     submittedBy:  name,
     submittedAt:  new Date().toISOString(),
     choices:      state.choices,
     ranking:      finalRanking.map((idx, i) => ({
-      rank:       i + 1,
-      title:      songs[idx]?.title      || '?',
-      album:      songs[idx]?.album      || null,
-      spotifyId:  songs[idx]?.spotifyId  || null,
+      rank:        i + 1,
+      title:       songs[idx]?.title || '?',
     })),
   };
-  dlFile('bandmaid-ranking-' + name.replace(/\s+/g, '-') + '.json', payload);
-  toast('Submission file downloaded!');
+  navigator.clipboard.writeText(JSON.stringify(payload, null, 2))
+    .then(()  => toast('Submission JSON copied — now open the form and paste!'))
+    .catch(() => toast('Copy failed — try a different browser.'));
 }
 
 // ═══════════════════════════════════════════
