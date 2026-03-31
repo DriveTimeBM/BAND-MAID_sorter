@@ -92,6 +92,7 @@
   .card { background:var(--surf); border:1px solid var(--bord); border-radius:4px; overflow:hidden; transition:border-color .18s,transform .18s; cursor:pointer; position:relative; }
   .card:hover { border-color:var(--acc); transform:translateY(-2px); }
   .card:hover .pick { opacity:1; }
+  .card.kb-focus { border-color:var(--acc); box-shadow:0 0 0 2px var(--acc2); }
   .card.chosen { border-color:var(--acc); animation:pulse .35s ease; }
   @keyframes pulse { 0%{transform:scale(1)} 50%{transform:scale(1.02)} 100%{transform:scale(1)} }
   .card-body { padding:22px 20px 14px; }
@@ -254,7 +255,7 @@ const SONGS_URL = 'songs.json';
 // Progress bar conservatism.
 // Bar reaches 100% only after (n·log₂n · FACTOR) comparisons.
 // Higher = slower bar = user less likely to feel "almost done" prematurely.
-const PROGRESS_FACTOR = 1.4;
+const PROGRESS_FACTOR = 1.2;
 
 // ═══════════════════════════════════════════
 //  STATE
@@ -266,6 +267,7 @@ let replayQueue  = [];  // entries to replay when resuming
 let resolver     = null;
 let curA = null, curB = null;
 let finalRanking = [];
+let kbSide = 'a';   // which card is keyboard-focused: 'a' or 'b'
 
 function newState() {
   return { choices: 0, done: false };
@@ -296,6 +298,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('file-resume').onchange = loadSession;
   document.getElementById('card-a').onclick       = () => pick('a');
   document.getElementById('card-b').onclick       = () => pick('b');
+
+  // Keyboard: Tab toggles between cards, Enter selects focused card
+  document.addEventListener('keydown', e => {
+    const sortActive = document.getElementById('scr-sort').classList.contains('active');
+    if (!sortActive || !resolver) return;
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      kbSide = kbSide === 'a' ? 'b' : 'a';
+      setKbFocus(kbSide);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      pick(kbSide);
+    }
+  });
 });
 
 // ═══════════════════════════════════════════
@@ -386,6 +402,11 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 // ═══════════════════════════════════════════
 //  CARD RENDERING
 // ═══════════════════════════════════════════
+function setKbFocus(side) {
+  document.getElementById('card-a').classList.toggle('kb-focus', side === 'a');
+  document.getElementById('card-b').classList.toggle('kb-focus', side === 'b');
+}
+
 function renderCards(iA, iB) {
   const a = songs[iA], b = songs[iB];
   document.getElementById('ttl-a').textContent = a.title;
@@ -394,6 +415,9 @@ function renderCards(iA, iB) {
   document.getElementById('alb-b').textContent = b.album || '';
   renderSpotify('sp-a', a.SpotifyId);
   renderSpotify('sp-b', b.SpotifyId);
+  // Reset keyboard focus to left card on each new pair
+  kbSide = 'a';
+  setKbFocus('a');
 }
 function renderSpotify(elId, sid) {
   const el = document.getElementById(elId);
