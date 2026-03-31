@@ -1,637 +1,637 @@
 ﻿[
     {
-        "SongName":  "Puzzle",
-        "AlbumName":  "Just Bring It",
+        "title":  "Puzzle",
+        "album":  "Just Bring It",
         "SpotifyId":  "1vbI2aDtejlrUJOVXGmM98"
     },
     {
-        "SongName":  "Blooming",
-        "AlbumName":  "CONQUEROR",
+        "title":  "Blooming",
+        "album":  "CONQUEROR",
         "SpotifyId":  "2sI0Geda1N0cAjKnbzujHs"
     },
     {
-        "SongName":  "Daydreaming",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "Daydreaming",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "7tH4wNb0jxpLCMxjQ4NOrX"
     },
     {
-        "SongName":  "Moratorium",
-        "AlbumName":  "Just Bring It",
+        "title":  "Moratorium",
+        "album":  "Just Bring It",
         "SpotifyId":  "6mpI27MYRbWYFiwew7oXzR"
     },
     {
-        "SongName":  "Choose me",
-        "AlbumName":  "Daydreaming / Choose me",
+        "title":  "Choose me",
+        "album":  "Daydreaming / Choose me",
         "SpotifyId":  "130dsYbbXp9jQnETiJ7axI"
     },
     {
-        "SongName":  "DICE",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "DICE",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "26P0PvxuRYcgzxeHZ4rjD0"
     },
     {
-        "SongName":  "Rinne",
-        "AlbumName":  "CONQUEROR",
+        "title":  "Rinne",
+        "album":  "CONQUEROR",
         "SpotifyId":  "0GW3AhsfYnpHw2QO9B8m4r"
     },
     {
-        "SongName":  "from now on",
-        "AlbumName":  "Unleash",
+        "title":  "from now on",
+        "album":  "Unleash",
         "SpotifyId":  "5mwQQNsrZI0wstcZfFaNOW"
     },
     {
-        "SongName":  "Don\u0027t you tell ME",
-        "AlbumName":  "Just Bring It",
+        "title":  "Don\u0027t you tell ME",
+        "album":  "Just Bring It",
         "SpotifyId":  "7pnJ7ud4Ggd4zWxLaqJ2R3"
     },
     {
-        "SongName":  "DOMINATION",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "DOMINATION",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "2VxoDPnyxNF976DK9rlVU6"
     },
     {
-        "SongName":  "onset",
-        "AlbumName":  "",
+        "title":  "onset",
+        "album":  "",
         "SpotifyId":  null
     },
     {
-        "SongName":  "I\u0027ll",
-        "AlbumName":  "Unleash",
+        "title":  "I\u0027ll",
+        "album":  "Unleash",
         "SpotifyId":  "62EErWjCzzsNKiwQVJBiTW"
     },
     {
-        "SongName":  "TAMAYA!",
-        "AlbumName":  "Epic Narratives",
+        "title":  "TAMAYA!",
+        "album":  "Epic Narratives",
         "SpotifyId":  "6dQVwIAhfHm0X0Btl9W4VR"
     },
     {
-        "SongName":  "SAYONAKIDORI",
-        "AlbumName":  "Unseen World",
+        "title":  "SAYONAKIDORI",
+        "album":  "Unseen World",
         "SpotifyId":  "3tZRykqJTASRfa5gGf9Cpp"
     },
     {
-        "SongName":  "Manners",
-        "AlbumName":  "Unseen World",
+        "title":  "Manners",
+        "album":  "Unseen World",
         "SpotifyId":  "5Pkm3bquCF1uRFSXXlyLde"
     },
     {
-        "SongName":  "hide-and-seek",
-        "AlbumName":  "glory",
+        "title":  "hide-and-seek",
+        "album":  "glory",
         "SpotifyId":  "6Dy3E31O7zPYGR16v0ujVq"
     },
     {
-        "SongName":  "Play",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "Play",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "5NCBGyWQXC74CFHLOE8SXu"
     },
     {
-        "SongName":  "alone",
-        "AlbumName":  "Brand New MAID",
+        "title":  "alone",
+        "album":  "Brand New MAID",
         "SpotifyId":  "75ZDZsEIfJa8iS67V6Q8yc"
     },
     {
-        "SongName":  "Corallium",
-        "AlbumName":  "Unleash",
+        "title":  "Corallium",
+        "album":  "Unleash",
         "SpotifyId":  "0Gc8ndMsx7uWAN8Rgkf8HF"
     },
     {
-        "SongName":  "secret My lips",
-        "AlbumName":  "Just Bring It",
+        "title":  "secret My lips",
+        "album":  "Just Bring It",
         "SpotifyId":  "2zGdfGj2Xr7OMXk696JZeV"
     },
     {
-        "SongName":  "What is justice?",
-        "AlbumName":  "SCOOOOOP",
+        "title":  "What is justice?",
+        "album":  "SCOOOOOP",
         "SpotifyId":  "21pcwg3zl1i2Gc7k1VhoH9"
     },
     {
-        "SongName":  "Present Perfect",
-        "AlbumName":  "SCOOOOOP",
+        "title":  "Present Perfect",
+        "album":  "SCOOOOOP",
         "SpotifyId":  "6O1zyBjfMe4PU7ie48rgqX"
     },
     {
-        "SongName":  "SUPER SUNSHINE",
-        "AlbumName":  "SCOOOOOP",
+        "title":  "SUPER SUNSHINE",
+        "album":  "SCOOOOOP",
         "SpotifyId":  "22qfV45rsOv99E9K571Y6V"
     },
     {
-        "SongName":  "SION",
-        "AlbumName":  "SCOOOOOP",
+        "title":  "SION",
+        "album":  "SCOOOOOP",
         "SpotifyId":  "0G88m1BynTSHMFtLkTVxgm"
     },
     {
-        "SongName":  "Dilly-Dally",
-        "AlbumName":  "SCOOOOOP",
+        "title":  "Dilly-Dally",
+        "album":  "SCOOOOOP",
         "SpotifyId":  "2pmoVnJStZcRP1Krc2jyIY"
     },
     {
-        "SongName":  "Lock and Load",
-        "AlbumName":  "SCOOOOOP",
+        "title":  "Lock and Load",
+        "album":  "SCOOOOOP",
         "SpotifyId":  "5L3gFBompVf9XgctOOGdnY"
     },
     {
-        "SongName":  "HATE?",
-        "AlbumName":  "Unleash",
+        "title":  "HATE?",
+        "album":  "Unleash",
         "SpotifyId":  "1gTErh8Un4YQFfeaIS2KNi"
     },
     {
-        "SongName":  "FREEDOM",
-        "AlbumName":  "Brand New MAID",
+        "title":  "FREEDOM",
+        "album":  "Brand New MAID",
         "SpotifyId":  "6njKavlKlkntFIvHC1oz63"
     },
     {
-        "SongName":  "NO GOD",
-        "AlbumName":  "Unseen World",
+        "title":  "NO GOD",
+        "album":  "Unseen World",
         "SpotifyId":  "69JuxDasPqta67uINvwnku"
     },
     {
-        "SongName":  "Unleash!!!!!",
-        "AlbumName":  "Unleash",
+        "title":  "Unleash!!!!!",
+        "album":  "Unleash",
         "SpotifyId":  "5Ti8I2TZIE0CM625nT9e0H"
     },
     {
-        "SongName":  "Bubble",
-        "AlbumName":  "CONQUEROR",
+        "title":  "Bubble",
+        "album":  "CONQUEROR",
         "SpotifyId":  "4AUzKVmET6xYBmxcmov4Zu"
     },
     {
-        "SongName":  "matchless GUM",
-        "AlbumName":  "YOLO",
+        "title":  "matchless GUM",
+        "album":  "YOLO",
         "SpotifyId":  "7KVzM8gaCK8Y3NHK8KMVNB"
     },
     {
-        "SongName":  "anemone",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "anemone",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "4f3EXChqyGkqWNwGEeBKIL"
     },
     {
-        "SongName":  "Forbidden tale",
-        "AlbumName":  "Epic Narratives",
+        "title":  "Forbidden tale",
+        "album":  "Epic Narratives",
         "SpotifyId":  "2yRRbMy2Qw4IXrfrZ5sedm"
     },
     {
-        "SongName":  "Hibana",
-        "AlbumName":  "Sense",
+        "title":  "Hibana",
+        "album":  "Sense",
         "SpotifyId":  "31W28cJlXSVXpdiAnSQ0gS"
     },
     {
-        "SongName":  "Letters to you",
-        "AlbumName":  "Epic Narratives",
+        "title":  "Letters to you",
+        "album":  "Epic Narratives",
         "SpotifyId":  "05r6e2c6w3owvRMgQO6Z00"
     },
     {
-        "SongName":  "Unfair game",
-        "AlbumName":  "YOLO",
+        "title":  "Unfair game",
+        "album":  "YOLO",
         "SpotifyId":  "1KaVwmwG7RbWjrtwu1gltm"
     },
     {
-        "SongName":  "Catharsis",
-        "AlbumName":  "CONQUEROR",
+        "title":  "Catharsis",
+        "album":  "CONQUEROR",
         "SpotifyId":  "6VKBqQovvgnWBBF0EjreDl"
     },
     {
-        "SongName":  "Mirage",
-        "AlbumName":  "CONQUEROR",
+        "title":  "Mirage",
+        "album":  "CONQUEROR",
         "SpotifyId":  "1EHjwJ9CXrCfsudSnuJxvF"
     },
     {
-        "SongName":  "Screaming",
-        "AlbumName":  "start over",
+        "title":  "Screaming",
+        "album":  "start over",
         "SpotifyId":  "4SkIrSPNnHYaxJwmD3B3gz"
     },
     {
-        "SongName":  "Warning!",
-        "AlbumName":  "Unseen World",
+        "title":  "Warning!",
+        "album":  "Unseen World",
         "SpotifyId":  "5U1S4syKs86N7ot1nL1OuM"
     },
     {
-        "SongName":  "the non-fiction days",
-        "AlbumName":  "Brand New MAID",
+        "title":  "the non-fiction days",
+        "album":  "Brand New MAID",
         "SpotifyId":  "2Ch7F5qC1NS5gNLEmPiRao"
     },
     {
-        "SongName":  "REAL EXISTENCE",
-        "AlbumName":  "New Beginning",
+        "title":  "REAL EXISTENCE",
+        "album":  "New Beginning",
         "SpotifyId":  "0S6wuDXHdmsKetgEXEMgUh"
     },
     {
-        "SongName":  "Wonderland",
-        "AlbumName":  "CONQUEROR",
+        "title":  "Wonderland",
+        "album":  "CONQUEROR",
         "SpotifyId":  "3vzKGHG8L0avvtkUzFSp6w"
     },
     {
-        "SongName":  "Zen",
-        "AlbumName":  "SCOOOOOP",
+        "title":  "Zen",
+        "album":  "SCOOOOOP",
         "SpotifyId":  "060MftY3uM3R3r1miNh9ys"
     },
     {
-        "SongName":  "The one",
-        "AlbumName":  "Epic Narratives",
+        "title":  "The one",
+        "album":  "Epic Narratives",
         "SpotifyId":  "0VLPrI6v6fIxcuxdAl20c1"
     },
     {
-        "SongName":  "Awkward",
-        "AlbumName":  "Just Bring It",
+        "title":  "Awkward",
+        "album":  "Just Bring It",
         "SpotifyId":  "6nJYYZu1qIwmmdtNxb5J0S"
     },
     {
-        "SongName":  "endless Story",
-        "AlbumName":  "CONQUEROR",
+        "title":  "endless Story",
+        "album":  "CONQUEROR",
         "SpotifyId":  "65brJ9y3iba4UzKvdUtFjY"
     },
     {
-        "SongName":  "I still seek revenge.",
-        "AlbumName":  "Unseen World",
+        "title":  "I still seek revenge.",
+        "album":  "Unseen World",
         "SpotifyId":  "7tbj3JFxYmRH0jbeJ4Zh1j"
     },
     {
-        "SongName":  "PAGE",
-        "AlbumName":  "CONQUEROR",
+        "title":  "PAGE",
+        "album":  "CONQUEROR",
         "SpotifyId":  "6M6P8P8vcjPLiCpGnQRLwt"
     },
     {
-        "SongName":  "Protect You",
-        "AlbumName":  "Epic Narratives",
+        "title":  "Protect You",
+        "album":  "Epic Narratives",
         "SpotifyId":  "4D9CDbYiBWfRTKSNuxOQHR"
     },
     {
-        "SongName":  "Ready to Rock",
-        "AlbumName":  "SCOOOOOP",
+        "title":  "Ready to Rock",
+        "album":  "SCOOOOOP",
         "SpotifyId":  "6RmznWIj65w4YPTcfVfmpt"
     },
     {
-        "SongName":  "Shambles",
-        "AlbumName":  "Epic Narratives",
+        "title":  "Shambles",
+        "album":  "Epic Narratives",
         "SpotifyId":  "590KvwnYag62VRzmXM7dOk"
     },
     {
-        "SongName":  "After Life",
-        "AlbumName":  "Unseen World",
+        "title":  "After Life",
+        "album":  "Unseen World",
         "SpotifyId":  "1aFJJrP1R0xIoypSRaA8dQ"
     },
     {
-        "SongName":  "glory",
-        "AlbumName":  "CONQUEROR",
+        "title":  "glory",
+        "album":  "CONQUEROR",
         "SpotifyId":  "6I4pECm2Pks71VFFZBf1tm"
     },
     {
-        "SongName":  "influencer",
-        "AlbumName":  "Unleash",
+        "title":  "influencer",
+        "album":  "Unleash",
         "SpotifyId":  "1bgpOs3FeHhbpFSZkApGkZ"
     },
     {
-        "SongName":  "Smile",
-        "AlbumName":  "Bubble",
+        "title":  "Smile",
+        "album":  "Bubble",
         "SpotifyId":  "6T453iUKBiSkLFaNr1zQvQ"
     },
     {
-        "SongName":  "HONKAI",
-        "AlbumName":  "Unseen World",
+        "title":  "HONKAI",
+        "album":  "Unseen World",
         "SpotifyId":  "4bCHpstXiD0lJQLmNmYySk"
     },
     {
-        "SongName":  "you.",
-        "AlbumName":  "Just Bring It",
+        "title":  "you.",
+        "album":  "Just Bring It",
         "SpotifyId":  "3mNkWdHJK1pi1SIi8k8lQc"
     },
     {
-        "SongName":  "Carry on living",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "Carry on living",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "6W1ldyQrd6hQVW0DL3W1Xb"
     },
     {
-        "SongName":  "CLANG",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "CLANG",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "5W0TmFbf99HsjItflpvu2y"
     },
     {
-        "SongName":  "FREEZER",
-        "AlbumName":  "New Beginning",
+        "title":  "FREEZER",
+        "album":  "New Beginning",
         "SpotifyId":  "33QkSbkPe0DZ5PEewNYWEv"
     },
     {
-        "SongName":  "flying high",
-        "AlbumName":  "CONQUEROR",
+        "title":  "flying high",
+        "album":  "CONQUEROR",
         "SpotifyId":  "5PT1nttOtZDZ2uSfV1IpNJ"
     },
     {
-        "SongName":  "Don\u0027t be long",
-        "AlbumName":  "Different",
+        "title":  "Don\u0027t be long",
+        "album":  "Different",
         "SpotifyId":  "7yKit73HABg7GsiRVxKJ9t"
     },
     {
-        "SongName":  "One and only",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "One and only",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "0EzwSADbv37ola3YRRMhTc"
     },
     {
-        "SongName":  "Liberal",
-        "AlbumName":  "CONQUEROR",
+        "title":  "Liberal",
+        "album":  "CONQUEROR",
         "SpotifyId":  "01RUYS50ZQzgFyOpxxBWSZ"
     },
     {
-        "SongName":  "Why Why Why",
-        "AlbumName":  "Unseen World",
+        "title":  "Why Why Why",
+        "album":  "Unseen World",
         "SpotifyId":  "0ejxc9awogjeOcW7diw64R"
     },
     {
-        "SongName":  "YOLO",
-        "AlbumName":  "Just Bring It",
+        "title":  "YOLO",
+        "album":  "Just Bring It",
         "SpotifyId":  "7yb0f788JRrvzEcmq5O0Cu"
     },
     {
-        "SongName":  "without holding back",
-        "AlbumName":  "Unseen World",
+        "title":  "without holding back",
+        "album":  "Unseen World",
         "SpotifyId":  null
     },
     {
-        "SongName":  "about Us",
-        "AlbumName":  "about Us",
+        "title":  "about Us",
+        "album":  "about Us",
         "SpotifyId":  "7JKs9cSTofhiZp693gzUlV"
     },
     {
-        "SongName":  "Go easy",
-        "AlbumName":  "Epic Narratives",
+        "title":  "Go easy",
+        "album":  "Epic Narratives",
         "SpotifyId":  "4k1NrrlfgL2kCYqCgsG8tw"
     },
     {
-        "SongName":  "CHEMICAL REACTION",
-        "AlbumName":  "Unseen World",
+        "title":  "CHEMICAL REACTION",
+        "album":  "Unseen World",
         "SpotifyId":  "2AYtj47TZQ2L8qQyL8CimG"
     },
     {
-        "SongName":  "Sense",
-        "AlbumName":  "Unleash",
+        "title":  "Sense",
+        "album":  "Unleash",
         "SpotifyId":  "2jnCDRKe4IfoIN2teGn308"
     },
     {
-        "SongName":  "BLACK HOLE",
-        "AlbumName":  "Unseen World",
+        "title":  "BLACK HOLE",
+        "album":  "Unseen World",
         "SpotifyId":  "6jLSMISjhuNnDIkDAjWlq5"
     },
     {
-        "SongName":  "Bestie",
-        "AlbumName":  "Epic Narratives",
+        "title":  "Bestie",
+        "album":  "Epic Narratives",
         "SpotifyId":  "2x09X8xcW4grY3mBvvHmLp"
     },
     {
-        "SongName":  "I can\u0027t live without you.",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "I can\u0027t live without you.",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "1oFx08aFKXWlxv0hkzb1Ok"
     },
     {
-        "SongName":  "Memorable",
-        "AlbumName":  "Epic Narratives",
+        "title":  "Memorable",
+        "album":  "Epic Narratives",
         "SpotifyId":  "5RjEJEBvz2WmO7vmfk07aR"
     },
     {
-        "SongName":  "H-G-K",
-        "AlbumName":  "Unseen World",
+        "title":  "H-G-K",
+        "album":  "Unseen World",
         "SpotifyId":  "45N6bBZ7DdDSGBsuiEAvqD"
     },
     {
-        "SongName":  "Brightest Star",
-        "AlbumName":  "Epic Narratives",
+        "title":  "Brightest Star",
+        "album":  "Epic Narratives",
         "SpotifyId":  "5emGoWQuA8oOEbbUpZv0xX"
     },
     {
-        "SongName":  "Gion-Cho",
-        "AlbumName":  "BAND-MAIKO",
+        "title":  "Gion-Cho",
+        "album":  "BAND-MAIKO",
         "SpotifyId":  "6QeWRDA4hBnMy3zZA0mQUj"
     },
     {
-        "SongName":  "Giovanni",
-        "AlbumName":  "Unseen World",
+        "title":  "Giovanni",
+        "album":  "Unseen World",
         "SpotifyId":  "1SSLJQS5lS61mZ2Y6T6mqL"
     },
     {
-        "SongName":  "Magie",
-        "AlbumName":  "Epic Narratives",
+        "title":  "Magie",
+        "album":  "Epic Narratives",
         "SpotifyId":  "6ww9DfnKo53Bk7NuM382LY"
     },
     {
-        "SongName":  "Different",
-        "AlbumName":  "Different",
+        "title":  "Different",
+        "album":  "Different",
         "SpotifyId":  "23taGXZI9sFYIxdBrqeVaz"
     },
     {
-        "SongName":  "Toi et moi",
-        "AlbumName":  "Epic Narratives",
+        "title":  "Toi et moi",
+        "album":  "Epic Narratives",
         "SpotifyId":  "2jlIA1LAmh3RS1W106mmTU"
     },
     {
-        "SongName":  "Take me higher!!",
-        "AlbumName":  "Just Bring It",
+        "title":  "Take me higher!!",
+        "album":  "Just Bring It",
         "SpotifyId":  "6BQMvthFi4kmiTUkYDcPQH"
     },
     {
-        "SongName":  "Turn me on",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "Turn me on",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "0hGTThyoYWRDRFyol7DtWO"
     },
     {
-        "SongName":  "Spirit!!",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "Spirit!!",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "6RqbFrSqnAFbnBAe6zRfuo"
     },
     {
-        "SongName":  "Get to the top",
-        "AlbumName":  "Epic Narratives",
+        "title":  "Get to the top",
+        "album":  "Epic Narratives",
         "SpotifyId":  "08NrK7NxAWsSZ6lhHqwQC5"
     },
     {
-        "SongName":  "Thrill",
-        "AlbumName":  "New Beginning",
+        "title":  "Thrill",
+        "album":  "New Beginning",
         "SpotifyId":  "1yDsdnMkRLLV8RNpiPwlkU"
     },
     {
-        "SongName":  "Honey",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "Honey",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "6W16DrkVuf0DDPhTqOjAf7"
     },
     {
-        "SongName":  "The Dragon Cries",
-        "AlbumName":  "CONQUEROR",
+        "title":  "The Dragon Cries",
+        "album":  "CONQUEROR",
         "SpotifyId":  "4AeLObGpkdKSsEiX4Jjs2T"
     },
     {
-        "SongName":  "TIME",
-        "AlbumName":  "Just Bring It",
+        "title":  "TIME",
+        "album":  "Just Bring It",
         "SpotifyId":  "00SUwMx3FN98r5goKOrcF9"
     },
     {
-        "SongName":  "Rock in me",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "Rock in me",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "34rLeFEq8rPrLjRXE0vySe"
     },
     {
-        "SongName":  "Show Them",
-        "AlbumName":  "Epic Narratives",
+        "title":  "Show Them",
+        "album":  "Epic Narratives",
         "SpotifyId":  "7dbBa36xYlQcDOjUJ0qNGA"
     },
     {
-        "SongName":  "start over",
-        "AlbumName":  "start over",
+        "title":  "start over",
+        "album":  "start over",
         "SpotifyId":  "7CqQ1kpfX8F97qvIFndjzc"
     },
     {
-        "SongName":  "Youth",
-        "AlbumName":  "Unseen World",
+        "title":  "Youth",
+        "album":  "Unseen World",
         "SpotifyId":  null
     },
     {
-        "SongName":  "Balance",
-        "AlbumName":  "Unleash",
+        "title":  "Balance",
+        "album":  "Unleash",
         "SpotifyId":  "1oUAdxeXzLjXuBqm8GBq0K"
     },
     {
-        "SongName":  "Don\u0027t let me down",
-        "AlbumName":  "New Beginning",
+        "title":  "Don\u0027t let me down",
+        "album":  "New Beginning",
         "SpotifyId":  "13R2yrlxdRvsbtDrlHv3ZO"
     },
     {
-        "SongName":  "decided by myself",
-        "AlbumName":  "Just Bring It",
+        "title":  "decided by myself",
+        "album":  "Just Bring It",
         "SpotifyId":  "0bpK8ljibcnkAeSZtjqzZu"
     },
     {
-        "SongName":  "Before Yesterday",
-        "AlbumName":  "Brand New MAID",
+        "title":  "Before Yesterday",
+        "album":  "Brand New MAID",
         "SpotifyId":  "2JWONpgq6EQHDc2rWxECyo"
     },
     {
-        "SongName":  "CROSS",
-        "AlbumName":  "Just Bring It",
+        "title":  "CROSS",
+        "album":  "Just Bring It",
         "SpotifyId":  "5cpnywSGzX1Puth3ppa2rN"
     },
     {
-        "SongName":  "azure",
-        "AlbumName":  "CONQUEROR",
+        "title":  "azure",
+        "album":  "CONQUEROR",
         "SpotifyId":  "1CPLXhE8X7t9Oqijmnrcu9"
     },
     {
-        "SongName":  "FATE",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "FATE",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "0j193Qp4SusgguMBmsDWLF"
     },
     {
-        "SongName":  "Dilemma",
-        "AlbumName":  "CONQUEROR",
+        "title":  "Dilemma",
+        "album":  "CONQUEROR",
         "SpotifyId":  "0UkGRZQqZrOIevvdslZJ1p"
     },
     {
-        "SongName":  "At the drop of a hat",
-        "AlbumName":  "CONQUEROR",
+        "title":  "At the drop of a hat",
+        "album":  "CONQUEROR",
         "SpotifyId":  "2NVYDGSFmnvJwKzX2qNtTM"
     },
     {
-        "SongName":  "Bye My Tears",
-        "AlbumName":  "MAID IN JAPAN",
+        "title":  "Bye My Tears",
+        "album":  "MAID IN JAPAN",
         "SpotifyId":  "3Az63baQW6oYonqA53Ik3U"
     },
     {
-        "SongName":  "Alive-or-Dead",
-        "AlbumName":  "WORLD DOMINATION",
+        "title":  "Alive-or-Dead",
+        "album":  "WORLD DOMINATION",
         "SpotifyId":  "4vjnMw710G5ST5XtGfmoaA"
     },
     {
-        "SongName":  "Arcadia Girl",
-        "AlbumName":  "New Beginning",
+        "title":  "Arcadia Girl",
+        "album":  "New Beginning",
         "SpotifyId":  "763NEBHq57Ta06tdTovFIh"
     },
     {
-        "SongName":  "KEY",
-        "AlbumName":  "MAID IN JAPAN",
+        "title":  "KEY",
+        "album":  "MAID IN JAPAN",
         "SpotifyId":  "5VMJ1VBXJiWzIZqnGG1IFi"
     },
     {
-        "SongName":  "YURAGU",
-        "AlbumName":  "Brand New MAID",
+        "title":  "YURAGU",
+        "album":  "Brand New MAID",
         "SpotifyId":  "75xmWwWHmRhlT4nTxMosoT"
     },
     {
-        "SongName":  "ORDER",
-        "AlbumName":  "Brand New MAID",
+        "title":  "ORDER",
+        "album":  "Brand New MAID",
         "SpotifyId":  "5RHgxz1fYZDD2POMxBZmh3"
     },
     {
-        "SongName":  "OOPARTS",
-        "AlbumName":  "Just Bring It",
+        "title":  "OOPARTS",
+        "album":  "Just Bring It",
         "SpotifyId":  "57KeACFXpYtyunmjhiLYD3"
     },
     {
-        "SongName":  "Shake That!!",
-        "AlbumName":  "New Beginning",
+        "title":  "Shake That!!",
+        "album":  "New Beginning",
         "SpotifyId":  "4UlybsnjfVNPtn6rdliNUB"
     },
     {
-        "SongName":  "FORWARD",
-        "AlbumName":  "MAID IN JAPAN",
+        "title":  "FORWARD",
+        "album":  "MAID IN JAPAN",
         "SpotifyId":  "6CBGaw60QjUtNIs3Ak17GP"
     },
     {
-        "SongName":  "So,What?",
-        "AlbumName":  "Just Bring It",
+        "title":  "So,What?",
+        "album":  "Just Bring It",
         "SpotifyId":  "5XUnkYa4Fxor040HlXZsMm"
     },
     {
-        "SongName":  "Don\u0027t apply the brake",
-        "AlbumName":  "New Beginning",
+        "title":  "Don\u0027t apply the brake",
+        "album":  "New Beginning",
         "SpotifyId":  "5dGUxBhCkDVi02iiMtt9J4"
     },
     {
-        "SongName":  "Brand-New Road",
-        "AlbumName":  "Brand New MAID",
+        "title":  "Brand-New Road",
+        "album":  "Brand New MAID",
         "SpotifyId":  "12DUb8A8xBvjLhuvT3pBvn"
     },
     {
-        "SongName":  "Beauty and the beast",
-        "AlbumName":  "New Beginning",
+        "title":  "Beauty and the beast",
+        "album":  "New Beginning",
         "SpotifyId":  "6Sj1Wr4W2YEotcTYVx4ma7"
     },
     {
-        "SongName":  "Be OK",
-        "AlbumName":  "MAID IN JAPAN",
+        "title":  "Be OK",
+        "album":  "MAID IN JAPAN",
         "SpotifyId":  "2Q0OEL83plWR3hej9obTcW"
     },
     {
-        "SongName":  "Ai to Jonetsu no Matador",
-        "AlbumName":  "Love, Passion, Matador",
+        "title":  "Ai to Jonetsu no Matador",
+        "album":  "Love, Passion, Matador",
         "SpotifyId":  "2rqmWfRjXosHEdwTQt7qYF"
     },
     {
-        "SongName":  "Summer Drive",
-        "AlbumName":  "Love, Passion, Matador",
+        "title":  "Summer Drive",
+        "album":  "Love, Passion, Matador",
         "SpotifyId":  "1O8L8PGHitfXFCyYQzdFsq"
     },
     {
-        "SongName":  "Knockin\u0027 on your heart",
-        "AlbumName":  "MAID IN JAPAN",
+        "title":  "Knockin\u0027 on your heart",
+        "album":  "MAID IN JAPAN",
         "SpotifyId":  "0TgyJIyMkhbS6dpea2SRf5"
     },
     {
-        "SongName":  "Price of Pride",
-        "AlbumName":  "New Beginning",
+        "title":  "Price of Pride",
+        "album":  "New Beginning",
         "SpotifyId":  "7f7EEV9szlk0uogNNEcWSJ"
     },
     {
-        "SongName":  "LOOK AT ME",
-        "AlbumName":  "Brand New MAID",
+        "title":  "LOOK AT ME",
+        "album":  "Brand New MAID",
         "SpotifyId":  "0lbFU91svPj6O7NKKqQj6d"
     },
     {
-        "SongName":  "Big Dad",
-        "AlbumName":  "MAID IN JAPAN",
+        "title":  "Big Dad",
+        "album":  "MAID IN JAPAN",
         "SpotifyId":  "1bdUoOSL60s5mUxoOz5Pk4"
     },
     {
-        "SongName":  "Yoake Mae",
-        "AlbumName":  "MAID IN JAPAN",
+        "title":  "Yoake Mae",
+        "album":  "MAID IN JAPAN",
         "SpotifyId":  "75TusgHXSDWy4hEst4P1bw"
     },
     {
-        "SongName":  "EverGreen",
-        "AlbumName":  "MAID IN JAPAN",
+        "title":  "EverGreen",
+        "album":  "MAID IN JAPAN",
         "SpotifyId":  "1vNZAfSuqlUY0g2EABzEjP"
     }
 ]
