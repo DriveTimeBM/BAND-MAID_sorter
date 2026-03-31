@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAND-MAID Song Sorter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #0a0a0c;
+    --surf:    #111116;
+    --surf2:   #18181f;
+    --bord:    #2a2a35;
+    --acc:     #e8003a;
+    --acc2:    #ff4d6d;
+    --gold:    #c9a84c;
+    --text:    #e8e8f0;
+    --muted:   #6b6b80;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.3;
+  }
+  #app { max-width: 880px; margin: 0 auto; padding: 0 20px 80px; }
+
+  /* ── Header ── */
+  header { text-align: center; padding: 44px 0 24px; }
+  header::after { content:''; display:block; width:52px; height:2px; background:var(--acc); margin:16px auto 0; }
+  .hd-main { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.2rem,6vw,3.8rem); letter-spacing:.08em; line-height:1; }
+  .hd-sub  { font-family:'Bebas Neue',sans-serif; font-size:clamp(.82rem,2.1vw,1.05rem); letter-spacing:.32em; color:var(--acc); margin-top:5px; }
+
+  /* ── Screens ── */
+  .screen { display:none; }
+  .screen.active { display:block; animation:fadeIn .3s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+
+  /* ── Start ── */
+  .start-card { background:var(--surf); border:1px solid var(--bord); border-radius:4px; padding:36px; text-align:center; margin-top:12px; }
+  .start-card h2 { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:.1em; margin-bottom:10px; }
+  .start-card p  { color:var(--muted); line-height:1.75; max-width:500px; margin:0 auto 22px; font-size:.92rem; }
+  .stat-row { display:flex; justify-content:center; gap:36px; margin-bottom:26px; flex-wrap:wrap; }
+  .stat-num   { font-family:'Bebas Neue',sans-serif; font-size:2.4rem; color:var(--acc); line-height:1; }
+  .stat-label { font-size:.72rem; letter-spacing:.15em; color:var(--muted); text-transform:uppercase; margin-top:3px; }
+
+  /* ── Buttons ── */
+  .btn { display:inline-block; font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:.15em; padding:12px 30px; border:none; border-radius:2px; cursor:pointer; transition:all .18s; text-decoration:none; }
+  .btn-pri  { background:var(--acc); color:#fff; }
+  .btn-pri:hover { background:var(--acc2); transform:translateY(-1px); }
+  .btn-sec  { background:transparent; color:var(--text); border:1px solid var(--bord); }
+  .btn-sec:hover { border-color:var(--acc); color:var(--acc); }
+  .btn-gold { background:var(--gold); color:#0a0a0c; }
+  .btn-gold:hover { filter:brightness(1.1); transform:translateY(-1px); }
+  .btn-sm { font-size:.78rem; padding:8px 18px; }
+  .btn-row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:16px; }
+
+  /* ── Resume ── */
+  .resume-sec { margin:14px 0 0; padding:20px; border:1px dashed var(--bord); border-radius:4px; text-align:center; }
+  .resume-sec p { font-size:.85rem; color:var(--muted); margin-bottom:12px; }
+  #file-resume { display:none; }
+  .file-lbl { display:inline-block; font-family:'Bebas Neue',sans-serif; font-size:.9rem; letter-spacing:.12em; padding:10px 24px; border:1px solid var(--bord); border-radius:2px; cursor:pointer; color:var(--muted); transition:all .18s; }
+  .file-lbl:hover { border-color:var(--acc); color:var(--acc); }
+
+  /* ── Sort screen ── */
+  .prog-wrap { margin:20px 0 14px; }
+  .prog-top  { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:7px; font-size:.76rem; color:var(--muted); letter-spacing:.05em; }
+  .prog-pct  { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:var(--acc); }
+  .prog-bg   { height:4px; background:var(--bord); border-radius:2px; overflow:hidden; }
+  .prog-fill { height:100%; background:linear-gradient(90deg,var(--acc),var(--acc2)); transition:width .5s ease; min-width:2px; }
+  .choice-lbl{ text-align:center; font-size:.75rem; color:var(--muted); margin-top:7px; letter-spacing:.05em; }
+
+  .vs-grid { display:grid; grid-template-columns:1fr auto 1fr; gap:16px; align-items:center; margin:4px 0; }
+  .vs-mid  { font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--bord); text-align:center; letter-spacing:.1em; }
+
+  /* ── Song card ── */
+  .card { background:var(--surf); border:1px solid var(--bord); border-radius:4px; overflow:hidden; transition:border-color .18s,transform .18s; cursor:pointer; position:relative; }
+  .card:hover { border-color:var(--acc); transform:translateY(-2px); }
+  .card:hover .pick { opacity:1; }
+  .card.chosen { border-color:var(--acc); animation:pulse .35s ease; }
+  @keyframes pulse { 0%{transform:scale(1)} 50%{transform:scale(1.02)} 100%{transform:scale(1)} }
+  .card-body { padding:22px 20px 14px; }
+  .song-ttl  { font-family:'Bebas Neue',sans-serif; font-size:clamp(1rem,2.4vw,1.42rem); letter-spacing:.05em; line-height:1.2; margin-bottom:5px; }
+  .song-alb  { font-size:.74rem; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px; min-height:1em; }
+  .pick      { position:absolute; top:9px; right:9px; background:var(--acc); color:#fff; font-family:'Bebas Neue',sans-serif; font-size:.6rem; letter-spacing:.14em; padding:3px 7px; border-radius:2px; opacity:0; transition:opacity .18s; pointer-events:none; }
+  .card-sp   { border-top:1px solid var(--bord); }
+  .card-sp iframe { display:block; border-radius:0 0 4px 4px; }
+
+  .act-row { display:flex; justify-content:center; gap:12px; margin-top:14px; flex-wrap:wrap; }
+
+  /* ── Results ── */
+  .res-hdr   { text-align:center; padding:20px 0; }
+  .res-hdr h2{ font-family:'Bebas Neue',sans-serif; font-size:2.4rem; letter-spacing:.1em; margin-bottom:6px; }
+  .res-hdr p { color:var(--muted); font-size:.87rem; }
+
+  .name-wrap { background:var(--surf); border:1px solid var(--bord); border-radius:4px; padding:22px; margin:14px 0; }
+  .name-wrap label { display:block; font-size:.74rem; letter-spacing:.12em; color:var(--muted); text-transform:uppercase; margin-bottom:8px; }
+  .name-wrap small  { display:block; margin-top:5px; font-size:.71rem; color:var(--muted); font-style:italic; }
+  input[type="text"]{ width:100%; background:var(--bg); border:1px solid var(--bord); color:var(--text); font-family:'Barlow',sans-serif; font-size:.95rem; font-weight:300; padding:10px 13px; border-radius:2px; outline:none; transition:border-color .15s; }
+  input[type="text"]:focus { border-color:var(--acc); }
+
+  .rank-list { background:var(--surf); border:1px solid var(--bord); border-radius:4px; max-height:300px; overflow-y:auto; margin:12px 0; padding:12px 16px; }
+  .rank-list::-webkit-scrollbar { width:4px; }
+  .rank-list::-webkit-scrollbar-track { background:var(--bg); }
+  .rank-list::-webkit-scrollbar-thumb { background:var(--bord); border-radius:2px; }
+  .rank-row  { display:flex; align-items:center; gap:12px; padding:6px 0; border-bottom:1px solid var(--bord); font-size:.85rem; }
+  .rank-row:last-child { border-bottom:none; }
+  .rank-n    { font-family:'Bebas Neue',sans-serif; font-size:.95rem; color:var(--acc); min-width:26px; text-align:right; }
+  .rank-t    { color:var(--text); }
+  .rank-al   { color:var(--muted); font-size:.72rem; margin-left:auto; white-space:nowrap; }
+
+  .info-box  { background:var(--surf2); border:1px solid var(--bord); border-left:3px solid var(--gold); border-radius:4px; padding:16px 20px; font-size:.83rem; line-height:1.8; color:var(--muted); margin:14px 0; }
+  .info-box strong { color:var(--text); }
+  .info-box a { color:var(--gold); }
+  .info-box code { font-size:.78rem; background:var(--bg); padding:1px 5px; border-radius:2px; color:var(--text); }
+
+  /* ── Toast ── */
+  #toast { position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(10px); background:var(--surf2); border:1px solid var(--bord); color:var(--text); padding:9px 22px; border-radius:3px; font-size:.82rem; letter-spacing:.05em; opacity:0; transition:all .25s ease; pointer-events:none; z-index:10000; white-space:nowrap; }
+  #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* ── Mobile ── */
+  @media(max-width:560px){
+    .vs-grid { grid-template-columns:1fr; }
+    .vs-mid  { font-size:1.1rem; padding:4px 0; }
+    .start-card { padding:20px 14px; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <header>
+    <div class="hd-main">BAND-MAID</div>
+    <div class="hd-sub">Song Preference Sorter</div>
+  </header>
+
+  <!-- ══════════ START ══════════ -->
+  <div id="scr-start" class="screen active">
+    <div class="start-card">
+      <h2>Rank Your Favorites</h2>
+      <p>Two songs at a time — just pick which one you prefer. Repeat until all songs are ranked. You can preview each song, skip a tough pair, or save your progress to continue later.</p>
+      <div class="stat-row">
+        <div><div class="stat-num" id="s-count">—</div><div class="stat-label">Songs</div></div>
+        <div><div class="stat-num" id="s-est">—</div><div class="stat-label">Est. Comparisons</div></div>
+      </div>
+      <button class="btn btn-pri" id="btn-start">Begin Sorting</button>
+    </div>
+    <div class="resume-sec">
+      <p>Saved a session before? Pick up where you left off.</p>
+      <label class="file-lbl" for="file-resume">📂 Load Saved Session</label>
+      <input type="file" id="file-resume" accept=".json">
+    </div>
+  </div>
+
+  <!-- ══════════ SORT ══════════ -->
+  <div id="scr-sort" class="screen">
+    <div class="prog-wrap">
+      <div class="prog-top">
+        <span>Progress &nbsp;·&nbsp; worst-case estimate</span>
+        <span class="prog-pct" id="pct-lbl">0%</span>
+      </div>
+      <div class="prog-bg"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="choice-lbl" id="choice-lbl">0 comparisons made</div>
+    </div>
+
+    <div class="vs-grid">
+      <div class="card" id="card-a">
+        <div class="card-body">
+          <div class="song-ttl" id="ttl-a">—</div>
+          <div class="song-alb" id="alb-a"></div>
+        </div>
+        <div class="pick">Prefer This</div>
+        <div class="card-sp" id="sp-a"></div>
+      </div>
+
+      <div class="vs-mid">VS</div>
+
+      <div class="card" id="card-b">
+        <div class="card-body">
+          <div class="song-ttl" id="ttl-b">—</div>
+          <div class="song-alb" id="alb-b"></div>
+        </div>
+        <div class="pick">Prefer This</div>
+        <div class="card-sp" id="sp-b"></div>
+      </div>
+    </div>
+
+    <div class="act-row">
+      <button class="btn btn-sec btn-sm" id="btn-skip">⟳ Too Close to Call / Skip</button>
+      <button class="btn btn-sec btn-sm" id="btn-save">💾 Save Progress</button>
+    </div>
+  </div>
+
+  <!-- ══════════ RESULTS ══════════ -->
+  <div id="scr-results" class="screen">
+    <div class="res-hdr">
+      <h2>Your Ranking</h2>
+      <p id="res-sub"></p>
+    </div>
+
+    <div class="name-wrap">
+      <label for="uname">Your name or alias (optional)</label>
+      <input type="text" id="uname" placeholder="e.g. OkitaFan · MaidInNY · anonymous…" maxlength="60">
+      <small>Doesn't need to be your real name — used only to label your submission.</small>
+    </div>
+
+    <div class="rank-list" id="rank-list"></div>
+
+    <div class="btn-row">
+      <button class="btn btn-sec" id="btn-copy">📋 Copy My Ranking</button>
+      <button class="btn btn-gold" id="btn-dl">⬇ Download Submission File</button>
+    </div>
+
+    <div class="info-box">
+      <strong>How to submit your results:</strong>
+      Download the submission file, then choose a method:<br><br>
+      <strong>Option A — GitHub Issue (recommended):</strong>
+      Open an issue at <a href="https://github.com/YOUR_USERNAME/BAND-MAID_sorter/issues/new" target="_blank">github.com/YOUR_USERNAME/BAND-MAID_sorter</a>
+      and attach the <code>.json</code> file. Free, pseudonymous — only requires a GitHub account.<br><br>
+      <strong>Option B — Google Form:</strong>
+      Set up a Form with a "Long answer" field and paste the JSON text there.
+      Responses flow into a Sheet you can process with Apps Script.
+      Add the form URL to <code>index.html</code> config at the top of the script.<br><br>
+      <strong>Option C — Email:</strong>
+      Configure a mailto link or alias address in <code>index.html</code>.
+    </div>
+
+    <div class="btn-row" style="margin-top:8px">
+      <button class="btn btn-sec" id="btn-restart">↩ Start Over</button>
+    </div>
+  </div>
+
+</div>
+<div id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════
+//  CONFIG — adjust these at the top of your copy
+// ═══════════════════════════════════════════
+const SONGS_URL = 'songs.json';
+
+// Progress bar conservatism.
+// Bar reaches 100% only after (n·log₂n · FACTOR) comparisons.
+// Higher = slower bar = user less likely to feel "almost done" prematurely.
+const PROGRESS_FACTOR = 1.6;
+
+// ═══════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════
+let songs  = [];
+let state  = newState();
+let compLog      = [];  // [{a, b, winner}]  — full log, enables resume
+let replayQueue  = [];  // entries to replay when resuming
+let resolver     = null;
+let curA = null, curB = null;
+let finalRanking = [];
+
+function newState() {
+  return { choices: 0, skips: 0, done: false };
+}
+
+// ═══════════════════════════════════════════
+//  BOOT
+// ═══════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const r = await fetch(SONGS_URL);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    songs = await r.json();
+    document.getElementById('s-count').textContent = songs.length;
+    document.getElementById('s-est').textContent   = '~' + Math.ceil(songs.length * Math.log2(songs.length));
+  } catch(e) {
+    console.warn('Could not load songs.json:', e.message);
+    document.getElementById('s-count').textContent = '?';
+    document.getElementById('s-est').textContent   = '?';
+  }
+
+  document.getElementById('btn-start').onclick   = startFresh;
+  document.getElementById('btn-skip').onclick    = () => pick('skip');
+  document.getElementById('btn-save').onclick    = saveSession;
+  document.getElementById('btn-copy').onclick    = copyReadable;
+  document.getElementById('btn-dl').onclick      = downloadJSON;
+  document.getElementById('btn-restart').onclick = () => showScreen('scr-start');
+  document.getElementById('file-resume').onchange = loadSession;
+  document.getElementById('card-a').onclick      = () => pick('a');
+  document.getElementById('card-b').onclick      = () => pick('b');
+});
+
+// ═══════════════════════════════════════════
+//  SCREEN HELPER
+// ═══════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ═══════════════════════════════════════════
+//  PROGRESS
+// ═══════════════════════════════════════════
+function worstCase(n) {
+  return Math.ceil(n * Math.log2(Math.max(n, 2)) * PROGRESS_FACTOR);
+}
+function updateProgress() {
+  const wc  = worstCase(songs.length);
+  const pct = Math.min(Math.floor(state.choices / wc * 100), 99);
+  document.getElementById('pct-lbl').textContent    = pct + '%';
+  document.getElementById('prog-fill').style.width  = pct + '%';
+  const c = state.choices, sk = state.skips;
+  document.getElementById('choice-lbl').textContent =
+    `${c} comparison${c !== 1 ? 's' : ''} made` + (sk ? ` · ${sk} skipped` : '');
+}
+
+// ═══════════════════════════════════════════
+//  SORT ENGINE  (async merge-sort)
+// ═══════════════════════════════════════════
+async function ask(idxA, idxB) {
+  // Replay a stored decision if resuming
+  if (replayQueue.length > 0) {
+    const e = replayQueue[0];
+    if (e.a === idxA && e.b === idxB) {
+      replayQueue.shift();
+      renderCards(idxA, idxB);
+      state.choices++;
+      updateProgress();
+      await sleep(10);
+      return e.winner;
+    }
+  }
+  curA = idxA; curB = idxB;
+  renderCards(idxA, idxB);
+  return new Promise(res => { resolver = res; });
+}
+
+function pick(winner) {
+  if (!resolver) return;
+  if (winner === 'a' || winner === 'b') {
+    const c = document.getElementById('card-' + winner);
+    c.classList.add('chosen');
+    setTimeout(() => c.classList.remove('chosen'), 350);
+  }
+  if (winner === 'skip') state.skips++;
+  state.choices++;
+  updateProgress();
+  compLog.push({ a: curA, b: curB, winner });
+  const r = resolver;
+  resolver = null;
+  r(winner);
+}
+
+async function runSort(arr) {
+  if (arr.length <= 1) return arr;
+  const mid   = Math.floor(arr.length / 2);
+  const left  = await runSort(arr.slice(0, mid));
+  const right = await runSort(arr.slice(mid));
+  return mergeArrays(left, right);
+}
+
+async function mergeArrays(left, right) {
+  const out = [];
+  let l = 0, r = 0;
+  while (l < left.length && r < right.length) {
+    const w = await ask(left[l], right[r]);
+    // 'b' means right song preferred; anything else (a or skip) advances left
+    if (w === 'b') out.push(right[r++]);
+    else           out.push(left[l++]);
+  }
+  return out.concat(left.slice(l), right.slice(r));
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ═══════════════════════════════════════════
+//  CARD RENDERING
+// ═══════════════════════════════════════════
+function renderCards(iA, iB) {
+  const a = songs[iA], b = songs[iB];
+  document.getElementById('ttl-a').textContent = a.title;
+  document.getElementById('alb-a').textContent = a.album || '';
+  document.getElementById('ttl-b').textContent = b.title;
+  document.getElementById('alb-b').textContent = b.album || '';
+  renderSpotify('sp-a', a.spotifyId);
+  renderSpotify('sp-b', b.spotifyId);
+}
+function renderSpotify(elId, sid) {
+  const el = document.getElementById(elId);
+  if (!sid) { el.innerHTML = ''; return; }
+  el.innerHTML =
+    `<iframe src="https://open.spotify.com/embed/track/${sid}?utm_source=generator&theme=0"
+       width="100%" height="80" frameBorder="0"
+       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+       loading="lazy"></iframe>`;
+}
+
+// ═══════════════════════════════════════════
+//  START / RESUME
+// ═══════════════════════════════════════════
+async function startFresh() {
+  if (!songs.length) { toast('songs.json not loaded yet.'); return; }
+  state        = newState();
+  compLog      = [];
+  replayQueue  = [];
+  resolver     = null;
+  finalRanking = [];
+  showScreen('scr-sort');
+  updateProgress();
+  const idx    = shuffle(Array.from({ length: songs.length }, (_, i) => i));
+  const sorted = await runSort(idx);
+  finalize(sorted);
+}
+
+async function loadSession(ev) {
+  const file = ev.target.files[0];
+  if (!file) return;
+  try {
+    const saved = JSON.parse(await file.text());
+    if (!Array.isArray(saved.compLog)) throw new Error('Not a valid session file.');
+
+    if (saved.done && Array.isArray(saved.sortedIndices)) {
+      // Completed — jump to results
+      finalRanking = saved.sortedIndices;
+      state   = { choices: saved.choices, skips: saved.skips || 0, done: true };
+      compLog = saved.compLog;
+      showScreen('scr-results');
+      renderRanking(finalRanking);
+      toast('Session loaded — ranking complete!');
+      return;
+    }
+
+    // In-progress resume
+    replayQueue  = [...saved.compLog];
+    compLog      = [];
+    state        = { choices: 0, skips: saved.skips || 0, done: false };
+    resolver     = null;
+    finalRanking = [];
+    showScreen('scr-sort');
+    updateProgress();
+    toast('Resuming — replaying your previous choices…');
+    // Use sequential indices; replay log guides the decisions
+    const idx    = Array.from({ length: songs.length }, (_, i) => i);
+    const sorted = await runSort(idx);
+    finalize(sorted);
+  } catch(e) {
+    toast('Error loading session: ' + e.message);
+    console.error(e);
+  }
+}
+
+function finalize(sorted) {
+  finalRanking = sorted;
+  state.done   = true;
+  showScreen('scr-results');
+  renderRanking(sorted);
+}
+
+// ═══════════════════════════════════════════
+//  RESULTS
+// ═══════════════════════════════════════════
+function renderRanking(sorted) {
+  document.getElementById('res-sub').textContent =
+    `${state.choices} comparisons · ${songs.length} songs ranked`;
+  document.getElementById('rank-list').innerHTML =
+    sorted.map((idx, i) => {
+      const s = songs[idx] || {};
+      return `<div class="rank-row">
+        <span class="rank-n">${i + 1}</span>
+        <span class="rank-t">${s.title || '?'}</span>
+        <span class="rank-al">${s.album || ''}</span>
+      </div>`;
+    }).join('');
+}
+
+function getName() {
+  const v = (document.getElementById('uname').value || '').trim();
+  return v || ('anon-' + Date.now());
+}
+
+function copyReadable() {
+  const name  = getName();
+  const lines = [`BAND-MAID Song Ranking — ${name}`, `Generated: ${new Date().toLocaleString()}`, ''];
+  finalRanking.forEach((idx, i) => {
+    const s = songs[idx] || {};
+    lines.push(`${i + 1}. ${s.title || '?'}${s.album ? ' (' + s.album + ')' : ''}`);
+  });
+  navigator.clipboard.writeText(lines.join('\n'))
+    .then(()  => toast('Copied to clipboard!'))
+    .catch(() => toast('Copy failed — try selecting text manually.'));
+}
+
+function downloadJSON() {
+  const name    = getName();
+  const payload = {
+    submittedBy:  name,
+    submittedAt:  new Date().toISOString(),
+    choices:      state.choices,
+    skips:        state.skips,
+    ranking:      finalRanking.map((idx, i) => ({
+      rank:       i + 1,
+      title:      songs[idx]?.title      || '?',
+      album:      songs[idx]?.album      || null,
+      spotifyId:  songs[idx]?.spotifyId  || null,
+    })),
+  };
+  dlFile('bandmaid-ranking-' + name.replace(/\s+/g, '-') + '.json', payload);
+  toast('Submission file downloaded!');
+}
+
+// ═══════════════════════════════════════════
+//  SAVE SESSION
+// ═══════════════════════════════════════════
+function saveSession() {
+  const payload = {
+    savedAt:      new Date().toISOString(),
+    choices:      state.choices,
+    skips:        state.skips,
+    done:         state.done,
+    compLog:      [...compLog],
+    sortedIndices: state.done ? [...finalRanking] : null,
+  };
+  dlFile('bandmaid-session-' + Date.now() + '.json', payload);
+  toast('Session saved!');
+}
+
+// ═══════════════════════════════════════════
+//  UTILS
+// ═══════════════════════════════════════════
+function dlFile(name, obj) {
+  const a = document.createElement('a');
+  a.href     = URL.createObjectURL(new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' }));
+  a.download = name;
+  a.click();
+}
+
+let _toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
