@@ -185,7 +185,7 @@
     </div>
 
     <div class="vs-grid">
-      <div class="card" id="card-a" tabindex="0">
+      <div class="card" id="card-a">
         <div class="card-body">
           <div class="song-ttl" id="ttl-a">—</div>
           <div class="song-alb" id="alb-a"></div>
@@ -196,7 +196,7 @@
 
       <div class="vs-mid">VS</div>
 
-      <div class="card" id="card-b" tabindex="0">
+      <div class="card" id="card-b">
         <div class="card-body">
           <div class="song-ttl" id="ttl-b">—</div>
           <div class="song-alb" id="alb-b"></div>
@@ -267,7 +267,8 @@ let replayQueue  = [];  // entries to replay when resuming
 let resolver     = null;
 let curA = null, curB = null;
 let finalRanking = [];
-let kbSide = 'a';   // which card is keyboard-focused: 'a' or 'b'
+let kbSide  = 'a';   // which card is keyboard-focused: 'a' or 'b'
+let picking = false; // guard against Enter key-repeat auto-firing
 
 function newState() {
   return { choices: 0, done: false };
